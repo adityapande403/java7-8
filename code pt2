@@ -1,0 +1,31 @@
+import java.util.Scanner;
+
+class NOMATCHEXCP extends Exception {
+    private String inputString;
+    
+    public NOMATCHEXCP(int lineNumber, String inputString) {
+        super("Error at line " + lineNumber + ": \"" + inputString + "\" does not match \"India\".");
+        this.inputString = inputString;
+    }
+    
+    public String getInputString() {
+        return inputString;
+    }
+}
+
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int lineNumber = 1;
+        try {
+            System.out.print("Enter a string: ");
+            String inputString = scanner.nextLine();
+            if (!inputString.equals("India")) {
+                throw new NOMATCHEXCP(lineNumber, inputString);
+            }
+            System.out.println("The input string matches \"India\".");
+        } catch (NOMATCHEXCP e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
